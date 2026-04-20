@@ -1,47 +1,56 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>YouTube 视频翻译</title>
+<title>YouTube AI翻译</title>
+
 <style>
+
 body{
 font-family:Arial;
 text-align:center;
 margin-top:40px;
 }
+
 input{
 width:60%;
 padding:10px;
 }
+
 button{
 padding:10px 20px;
 }
+
 </style>
+
 </head>
 
 <body>
 
-<h1>YouTube 自动翻译</h1>
+<h1>YouTube AI翻译工具</h1>
 
 <input id="url" placeholder="粘贴YouTube视频链接">
 
 <br><br>
 
-<button onclick="translate()">翻译视频</button>
+<button onclick="run()">开始翻译</button>
 
-<div id="player"></div>
+<pre id="result"></pre>
 
 <script>
 
-function translate(){
+async function run(){
 
 let url=document.getElementById("url").value
 
 let id=url.split("v=")[1]
 
-document.getElementById("player").innerHTML=
-`<iframe width="700" height="400"
-src="https://www.youtube.com/embed/${id}?cc_lang_pref=zh&cc_load_policy=1"
-frameborder="0" allowfullscreen></iframe>`
+let api="https://你的worker地址/?url="+id
+
+let r=await fetch(api)
+
+let t=await r.text()
+
+document.getElementById("result").innerText=t
 
 }
 
